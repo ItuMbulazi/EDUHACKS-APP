@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Heading, AspectRatio, Image, Text, Center, HStack, Stack, NativeBaseProvider } from "native-base";
+import { Box, Heading, AspectRatio, Image, Text, Center, HStack, Stack, NativeBaseProvider, Pressable } from "native-base";
 import { View, TextInput, ImageBackground,
-    StyleSheet, Dimensions,TouchableOpacity,Pressable,ScrollView } from 'react-native';
+    StyleSheet, Dimensions,TouchableOpacity,ScrollView } from 'react-native';
 import secondlogo from './images/secondlogo.png'
 import reminder from './images/reminders.png'
 import search from './images/search.png'
@@ -9,7 +9,29 @@ import user from './images/user.png'
 import math from './images/math.webp'
 import { Video, AVPlaybackStatus } from 'expo-av';
 
-export default function Physics() {
+export default function Physics({navigation}) {
+
+      const AllPage =()=>{
+navigation.navigate('all')
+  }
+
+    const MathsPage =()=>{
+navigation.navigate('maths')
+  }
+
+    const MathLitPage =()=>{
+navigation.navigate('mathlit')
+  }
+
+    const PhysicsPage =()=>{
+navigation.navigate('physics')
+  }
+
+  const AccountingPage =()=>{
+    navigation.navigate('accounting')
+      }
+    
+
 
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
@@ -45,12 +67,18 @@ export default function Physics() {
       </Box>
 
 
+      <ScrollView horizontal={true}>
+        
+
         <Box style={styles.optionBtn}>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={AllPage}>All</Text></TouchableOpacity>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={MathsPage}>Maths</Text></TouchableOpacity>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={MathLitPage}>Maths Lit</Text></TouchableOpacity>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={PhysicsPage}>Physics</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={AccountingPage}>Accounting</Text></TouchableOpacity>
       </Box>
+
+      </ScrollView>
 
 
          <Text style={{color:'#726D6D', fontSize:16, marginTop: 20, marginLeft:20, marginBottom:20, }}>Explore</Text>
@@ -269,12 +297,17 @@ const styles = StyleSheet.create({
     
 
   },
-
-
+  
   btn: {
     padding: 18,
     color: 'white',
    
+  },
+
+  optionBtn: {
+    flexDirection:'row',
+    marginTop: 50,
+    marginLeft:30,
   },
 
   btntext:{
@@ -282,13 +315,6 @@ const styles = StyleSheet.create({
    fontSize: 16,
    
 
-  },
-  
-
-  optionBtn: {
-    flexDirection:'row',
-    marginTop: 50,
-    marginLeft:30,
   },
 
    video: {

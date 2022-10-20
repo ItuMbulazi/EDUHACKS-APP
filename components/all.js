@@ -12,6 +12,7 @@ import {db} from '../firebase/firebaseconfig'
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useRoute } from '@react-navigation/native';
+import Accounting from "./accounting";
 
 
 
@@ -30,6 +31,11 @@ export default function All({navigation}) {
 
   }
 
+  const VideoClicked =()=>{
+    navigation.navigate('videoclicked')
+      }
+    
+
      const AllPage =()=>{
 navigation.navigate('all')
   }
@@ -45,6 +51,11 @@ navigation.navigate('mathlit')
     const PhysicsPage =()=>{
 navigation.navigate('physics')
   }
+
+  const AccountingPage =()=>{
+    navigation.navigate('accounting')
+      }
+    
 
 
   const video = React.useRef(null);
@@ -98,12 +109,21 @@ navigation.navigate('physics')
       </Box>
 
 
+<ScrollView horizontal={true}>
+        
+
         <Box style={styles.optionBtn}>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={AllPage}>All</Text></TouchableOpacity>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={MathsPage}>Maths</Text></TouchableOpacity>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={MathLitPage}>Maths Lit</Text></TouchableOpacity>
         <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={PhysicsPage}>Physics</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.btn}><Text style={styles.btntext} onPress={AccountingPage}>Accounting</Text></TouchableOpacity>
       </Box>
+
+      </ScrollView>
+      
+
+
 <TouchableOpacity onPress={()=>navigation.navigate('Explore')}>
        <Text style={{color:'#726D6D', fontSize:16, marginTop: 20, marginLeft:20, marginBottom:20, }}>Explore</Text>
       
@@ -116,6 +136,7 @@ navigation.navigate('physics')
 
 
 
+<TouchableOpacity onPress={VideoClicked}>
       <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
       backgroundColor: "gray.700", height:'auto'}} _web={{
@@ -178,12 +199,13 @@ navigation.navigate('physics')
           </HStack>
         </Stack>
       </Box>
+    </TouchableOpacity>
 
 
-         <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+       <TouchableOpacity onPress={VideoClicked}>
+      <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
-      backgroundColor: "gray.700",  height:'auto'
-    }} _web={{
+      backgroundColor: "gray.700", height:'auto'}} _web={{
       shadow: 2,
       borderWidth: 0
     }} _light={{
@@ -191,7 +213,7 @@ navigation.navigate('physics')
     }}>
         <Box>
           <AspectRatio w="100%" ratio={16 / 9}>
-           <Video
+            <Video
         ref={video}
         style={styles.video}
         source={{
@@ -210,9 +232,11 @@ navigation.navigate('physics')
           fontWeight: "700",
           fontSize: "xs"
         }} position="absolute" bottom="0" px="3" py="1.5">
-            PHOTOS
+           
           </Center>
         </Box>
+
+        
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
@@ -241,12 +265,13 @@ navigation.navigate('physics')
           </HStack>
         </Stack>
       </Box>
+    </TouchableOpacity>
 
 
-       <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+     <TouchableOpacity onPress={VideoClicked}>
+      <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
-      backgroundColor: "gray.700",  height:'auto'
-    }} _web={{
+      backgroundColor: "gray.700", height:'auto'}} _web={{
       shadow: 2,
       borderWidth: 0
     }} _light={{
@@ -254,7 +279,7 @@ navigation.navigate('physics')
     }}>
         <Box>
           <AspectRatio w="100%" ratio={16 / 9}>
-             <Video
+            <Video
         ref={video}
         style={styles.video}
         source={{
@@ -273,9 +298,11 @@ navigation.navigate('physics')
           fontWeight: "700",
           fontSize: "xs"
         }} position="absolute" bottom="0" px="3" py="1.5">
-            PHOTOS
+           
           </Center>
         </Box>
+
+        
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
@@ -304,6 +331,7 @@ navigation.navigate('physics')
           </HStack>
         </Stack>
       </Box>
+    </TouchableOpacity>
 
 
      </ScrollView>
@@ -311,7 +339,7 @@ navigation.navigate('physics')
      </Box>
 
 
-      <Text style={{color:'#726D6D', fontSize:16, marginTop: 20, marginLeft:20, marginBottom:20, }}>View More</Text>
+      <Text style={{color:'#726D6D', fontSize:16, marginTop: 10, marginLeft:20, marginBottom:20, }}>View More</Text>
 
 
       <Box>
@@ -320,6 +348,7 @@ navigation.navigate('physics')
 
 
 
+     <TouchableOpacity onPress={VideoClicked}>
       <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
       backgroundColor: "gray.700", height:'auto'}} _web={{
@@ -382,12 +411,13 @@ navigation.navigate('physics')
           </HStack>
         </Stack>
       </Box>
+    </TouchableOpacity>
 
 
-         <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+         <TouchableOpacity onPress={VideoClicked}>
+      <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
-      backgroundColor: "gray.700",  height:'auto'
-    }} _web={{
+      backgroundColor: "gray.700", height:'auto'}} _web={{
       shadow: 2,
       borderWidth: 0
     }} _light={{
@@ -395,7 +425,7 @@ navigation.navigate('physics')
     }}>
         <Box>
           <AspectRatio w="100%" ratio={16 / 9}>
-           <Video
+            <Video
         ref={video}
         style={styles.video}
         source={{
@@ -414,9 +444,11 @@ navigation.navigate('physics')
           fontWeight: "700",
           fontSize: "xs"
         }} position="absolute" bottom="0" px="3" py="1.5">
-            PHOTOS
+           
           </Center>
         </Box>
+
+        
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
@@ -445,12 +477,13 @@ navigation.navigate('physics')
           </HStack>
         </Stack>
       </Box>
+    </TouchableOpacity>
 
 
-       <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
+      <TouchableOpacity onPress={VideoClicked}>
+      <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
       borderColor: "coolGray.600",
-      backgroundColor: "gray.700",  height:'auto'
-    }} _web={{
+      backgroundColor: "gray.700", height:'auto'}} _web={{
       shadow: 2,
       borderWidth: 0
     }} _light={{
@@ -458,7 +491,7 @@ navigation.navigate('physics')
     }}>
         <Box>
           <AspectRatio w="100%" ratio={16 / 9}>
-             <Video
+            <Video
         ref={video}
         style={styles.video}
         source={{
@@ -477,9 +510,11 @@ navigation.navigate('physics')
           fontWeight: "700",
           fontSize: "xs"
         }} position="absolute" bottom="0" px="3" py="1.5">
-            PHOTOS
+           
           </Center>
         </Box>
+
+        
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
@@ -508,6 +543,7 @@ navigation.navigate('physics')
           </HStack>
         </Stack>
       </Box>
+    </TouchableOpacity>
 
 
      </ScrollView>
@@ -551,6 +587,12 @@ const styles = StyleSheet.create({
    
   },
 
+  optionBtn: {
+    flexDirection:'row',
+    marginTop: 50,
+    marginLeft:30,
+  },
+
   btntext:{
    fontWeight:'bold' ,
    fontSize: 16,
@@ -559,11 +601,7 @@ const styles = StyleSheet.create({
   },
   
 
-  optionBtn: {
-    flexDirection:'row',
-    marginTop: 50,
-    marginLeft:30,
-  },
+ 
 
    video: {
     alignSelf: 'center',

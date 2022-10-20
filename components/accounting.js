@@ -9,9 +9,9 @@ import user from './images/user.png'
 import math from './images/math.webp'
 import { Video, AVPlaybackStatus } from 'expo-av';
 
-export default function Maths({navigation}) {
-  
-        const AllPage =()=>{
+export default function Accounting({navigation}) {
+
+      const AllPage =()=>{
 navigation.navigate('all')
   }
 
@@ -30,8 +30,6 @@ navigation.navigate('physics')
   const AccountingPage =()=>{
     navigation.navigate('accounting')
       }
-    
-
 
 
   const video = React.useRef(null);
@@ -125,14 +123,14 @@ navigation.navigate('physics')
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              Algebra ll
+            Ethics Fixed Assets
             </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
             color: "violet.400"
           }} fontWeight="500" ml="-0.5" mt="-1">
-              Algebra in 3min.
+              PJ in 3min.
             </Text>
           </Stack>
          
@@ -185,7 +183,7 @@ navigation.navigate('physics')
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              Charts
+              Close Corporations Internal Control
             </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
@@ -245,14 +243,14 @@ navigation.navigate('physics')
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              Pythagoras
+             Inventory Systems
             </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
             color: "violet.400"
           }} fontWeight="500" ml="-0.5" mt="-1">
-              All triangles
+              Simplified for gr12
             </Text>
           </Stack>
       
@@ -298,7 +296,6 @@ const styles = StyleSheet.create({
     
 
   },
-  
 
   btn: {
     padding: 18,

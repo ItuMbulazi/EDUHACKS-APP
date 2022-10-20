@@ -8,10 +8,12 @@ import All from './components/all'
 import Maths from './components/maths'
 import MathLit from './components/mathlit'
 import Physics from './components/physics'
+import Accounting from './components/accounting'
 import Profile from './components/profileSingleAndGroup'
 import BtmNav from './components/btmNav'
 import Login from './components/login'
 import Signup from './components/signup'
+import VideoClicked from './components/videoClicked';
 
 // You can import from local files
 import AssetExample from './components/AssetExample';
@@ -41,6 +43,8 @@ export default function App() {
 
           <Stack.Screen name="mathlit" component={MathLit} />
           <Stack.Screen name="physics" component={Physics} />
+          <Stack.Screen name="accounting" component={Accounting} />
+          <Stack.Screen name="videoclicked" component={VideoClicked} />
           <Stack.Screen name="Profile" component={Profile}/>
           <Stack.Screen name="Settings" component={Settings}/>
           <Stack.Screen name="Explore" component={Explore}/>

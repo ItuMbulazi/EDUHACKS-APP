@@ -34,7 +34,7 @@ import { getStorage, uploadBytes } from "firebase/storage";
       
       
       const storage = getStorage();
-      const storageRef = ref(storage, 'image.jpg');
+      const storageRef = ref(storage, '1.jpg');
 
       const uploadTask = uploadBytesResumable(storageRef, 'image.jpg', metadata);
 
