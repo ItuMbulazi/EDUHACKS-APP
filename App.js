@@ -15,10 +15,15 @@ import Login from './components/login'
 import Signup from './components/signup'
 import VideoClicked from './components/videoClicked';
 
+import VideoUpload from './components/VideoUpload'
+import Onboarding from './components/Onboarding';
+
 // You can import from local files
 import AssetExample from './components/AssetExample';
 import  Settings  from './components/SettingsPage'
 import Explore from './components/VideosHome'
+import SignUpExpert from './components/SignUpExpert';
+import Packages from './components/packages';
 
 // or any pure javascript modules available in npm
 import { Card } from 'react-native-paper';
@@ -36,8 +41,11 @@ export default function App() {
       <NavigationContainer>
 
        <Stack.Navigator>
+       <Stack.Screen name='Onboarding' component={Onboarding}/>
 <Stack.Screen name='login' component={Login}/>
+<Stack.Screen name='packages' component={Packages}/>
 <Stack.Screen name="Signup" component={Signup}/>
+<Stack.Screen name="SignupExpert" component={SignUpExpert}/>
           <Stack.Screen name="all" component={All} />
           <Stack.Screen name="maths" component={Maths} />
 
@@ -48,6 +56,8 @@ export default function App() {
           <Stack.Screen name="Profile" component={Profile}/>
           <Stack.Screen name="Settings" component={Settings}/>
           <Stack.Screen name="Explore" component={Explore}/>
+
+          <Stack.Screen name="VideoUpload" component={VideoUpload}/>
          
         </Stack.Navigator>
      
