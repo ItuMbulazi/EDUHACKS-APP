@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import All from './all'
 import Profile from './profileSingleAndGroup'
+import Upload from './SelectVideo'
 
 
 // Screens
@@ -49,7 +50,7 @@ function MainContainer() {
         }}>
 
         <Tab.Screen name={homeName} component={Profile} />
-        <Tab.Screen name={detailsName} component={Profile} />
+        <Tab.Screen name={detailsName} component={Upload}/>
         <Tab.Screen name={settingsName} component={All}/>
      
 

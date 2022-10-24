@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform , StyleSheet} from 'react-native';
+import { Button, Image, View, Platform , StyleSheet, Dimensions} from 'react-native';
 
 import * as ImagePicker from 'expo-image-picker';
 import { Video, AVPlaybackStatus } from 'expo-av';
@@ -45,8 +45,11 @@ export default function VideoUpload() {
   };
 
 
+  let screenWidth = Dimensions.get('window').width
+  let screenHeight = Dimensions.get('window').height
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, marginTop: 20, width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center' }}>
       <Button title="Pick an image from camera roll" onPress={pickImage} />
        <Button title="Pick an video" onPress={pickVideo} />
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}

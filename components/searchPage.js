@@ -42,6 +42,11 @@ const menu= ({navigation}) => {
         console.error("Error adding document: ", e);
        }
     })
+
+    let screenWidth = Dimensions.get('window').width
+    let screenHeight = Dimensions.get('window').height
+
+    
   return (
     <View>
       <ScrollView>

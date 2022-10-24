@@ -36,13 +36,17 @@ navigation.navigate('physics')
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
 
+  let screenWidth = Dimensions.get('window').width
+  let screenHeight = Dimensions.get('window').height
+
+
   return (
 
     <ScrollView>
 
   
 
-    <ImageBackground style={{flex: 1, }} source={require('./images/background.jpg')}>
+    <ImageBackground style={{ flex: 1, width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center' }} source={require('./images/background.jpg')}>
 
 
 

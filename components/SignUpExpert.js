@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, ImageBackground, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Image, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import logo from './images/logo.png'
 
@@ -8,12 +8,15 @@ import { ScrollView } from 'native-base';
 
  export default function SignUpExpert({navigation}){
 
+  let screenWidth = Dimensions.get('window').width
+  let screenHeight = Dimensions.get('window').height
+
   return(
 
     <View justifyContent='center'>
 
 <ScrollView>
-      <ImageBackground style={{flex: 1, width: 390, height: 900}} source={require('./images/background.jpg')}>
+      <ImageBackground style={{ flex: 1, width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center' }} source={require('./images/background.jpg')}>
         
         <Image source={logo} style={{width:370, height:200}}/>
 
@@ -29,13 +32,16 @@ import { ScrollView } from 'native-base';
 
  <TextInput  style={styles.input} placeholder='Confirm Password'/>
 
- <TouchableOpacity style={styles.crendentialbtn}><Text style={styles.text} >CREDENTIALS</Text></TouchableOpacity>
+ <TouchableOpacity style={styles.crendentialbtn} onPress={()=>navigation.navigate('')}><Text style={styles.text} >CREDENTIALS</Text></TouchableOpacity>
 
- <TouchableOpacity style={styles.btn  }><Text style={styles.text} >NEXT</Text></TouchableOpacity>
+ <TouchableOpacity style={styles.btn  } onPress={()=>navigation.navigate('Explore')}><Text style={styles.text} >NEXT</Text></TouchableOpacity>
+ 
 
         
  
       </ImageBackground>
+
+
 </ScrollView>
 
    
@@ -59,7 +65,7 @@ height:60,
 width:300,
 justifyContent:'center',
 paddingLeft:15,
-marginLeft:30,
+
 marginTop:20
 },
 
@@ -70,7 +76,7 @@ btn:{
   height:60,
   marginTop:20,
   borderRadius:30,
-  marginLeft:120,
+  marginLeft:5,
 
 },
 
@@ -88,7 +94,7 @@ text:{
   width:200,
   marginTop:20,
   borderRadius:30,
-  marginLeft:80,
+  marginLeft:-5,
   
  } 
   
