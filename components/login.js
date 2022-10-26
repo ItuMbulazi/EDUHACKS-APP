@@ -1,9 +1,10 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, ImageBackground, Image, TextInput, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { useState, useEffect} from 'react';
+import { Text, View, StyleSheet, ImageBackground, Image,  TouchableOpacity,TextInput } from 'react-native';
 import Constants from 'expo-constants';
 import background from './images/background.jpg'
 import logo from './images/logo.png';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {auth} from '../firebase/firebaseconfig'
 import {
   ref,
@@ -11,51 +12,55 @@ import {
 } from "firebase/storage";
 import {storage} from '../firebase/firebaseconfig'
 import { getStorage, uploadBytes } from "firebase/storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
  export default function Login({navigation}){
-  const [email,setEmail]=React.useState('');
-  const [password,setPassword]=React.useState('');
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const auth = getAuth();
 
 
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
 
-  const metadata = {
-    contentType: 'jpg'
-  };
-  
+        navigation.navigate('all')
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  })
 
   const signin=()=>{
-
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in 
       const user = userCredential.user;
-      
-      
-      const storage = getStorage();
-      const storageRef = ref(storage, 'image.jpg');
-
-      const uploadTask = uploadBytesResumable(storageRef, 'image.jpg', metadata);
-
-      
-      // 'file' comes from the Blob or File API
-      uploadBytes(storageRef, 'Image').then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-      });
-      navigation.navigate('all')
+    navigation.navigate('all')
+      alert('is logged')
+  
+ 
+      // ...
     })
     .catch((error) => {
       const errorCode = error.code;
-     alert(errorCode)
+      const errorMessage = error.message;
+      alert(errorMessage)
     });
-}
+  }
+
+
+
 
   
   return(
-    
-
-
       <ImageBackground style={{flex: 1, width: 390, height: 800}} source={require('./images/background.jpg')}>
         <View>
     
@@ -63,17 +68,17 @@ import { getStorage, uploadBytes } from "firebase/storage";
 
 <Text style={{color:'#726D6D', fontStyle:'normal', fontSize:36, textAlign:'center'}}>LOGIN</Text>
 
-<TextInput onChangeText={email=>setEmail(email)} style={styles.input} placeholder='Username'/>
+<TextInput onChangeText={email=>setEmail(email)} style={styles.input} placeholder='Username' flat="focused" activeOutlineColor='blue'/>
 
  <TextInput onChangeText={password=>setPassword(password)} style={styles.input} placeholder='Password'/>
 
- <TouchableOpacity onPress={signin} style={styles.btn}><Text style={styles.text}>LOGIN</Text></TouchableOpacity>
+ <TouchableOpacity onPress={signin}  style={styles.btn}><Text style={styles.text}>LOGIN</Text></TouchableOpacity>
 
  <Text style={{color:'#726D6D', marginTop:20, marginLeft:150}}>Forgot password?</Text>
 
  <Text style={{marginLeft:190, marginTop:20}}>Or</Text>
 
- <TouchableOpacity onPress={()=>navigation.navigate('Signup')} style={styles.btn}><Text style={{color:'#726D6D',
+ <TouchableOpacity onPress={()=>navigation.navigate('signup')} style={styles.btn}><Text style={{color:'#726D6D',
 fontSize:22,
 marginLeft:20,
 marginTop:10}}>SIGN UP</Text></TouchableOpacity>

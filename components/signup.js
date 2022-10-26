@@ -31,7 +31,7 @@ const Signup=()=>{
       const user = userCredential.user;
 
         try {
-            const docRef = addDoc(collection(db, "users"), {
+            const docRef = addDoc(collection(db, "video"), {
               username: username,
               number:number,
               email:email,

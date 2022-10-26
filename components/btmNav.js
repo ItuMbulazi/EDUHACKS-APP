@@ -1,61 +1,84 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { NavigationContainer } from '@react-navigation/native';
+import {StyleSheet, View} from 'react-native'
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+
 
 import All from './all'
+import Upload from './SelectVideo'
 import Profile from './profileSingleAndGroup'
-
-
-// Screens
-
-
-//Screen names
-const homeName = "Home";
-const detailsName = "Details";
-const settingsName = "Settings";
 
 const Tab = createBottomTabNavigator();
 
-function MainContainer() {
+function BottomNav() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName={homeName}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            let rn = route.name;
 
-            if (rn === homeName) {
-              iconName = focused ? 'home' : 'home-outline';
+    <View style={styles.container}>
+   
+        
+    <Tab.Navigator >
+      <Tab.Screen name="Home" component={All} 
+       options={{
+        headerShown: false,
+        tabBarLabel: 'Home', 
+        tabBarIcon: ({ color }) => (
+          <Ionicons name='home-outline'size={30} color={color} />
+        ),
+      }}
+      />
 
-            } else if (rn === detailsName) {
-              iconName = focused ? 'list' : 'list-outline';
-
-            } else if (rn === settingsName) {
-              iconName = focused ? 'settings' : 'settings-outline';
-            }
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'grey',
-          labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 70}
-        }}>
-
-        <Tab.Screen name={homeName} component={Profile} />
-        <Tab.Screen name={detailsName} component={Profile} />
-        <Tab.Screen name={settingsName} component={All}/>
+      <Tab.Screen name="Music" component={Upload} 
+      options={{
+        headerShown:false,
+        tabBarLabel: 'Music',
+        tabBarIcon: ({ color }) => (
+          <Ionicons name="add-circle-outline" color={color} size={30}  />
+       
+        ),
+      }}
      
+      />
 
-      </Tab.Navigator>
-    </NavigationContainer>
+<Tab.Screen name="Emotions" component={Profile} 
+      options={{
+        headerShown:false,
+        tabBarLabel: 'plus',
+        tabBarIcon: ({ color }) => (
+          <Ionicons name="person-circle-outline" color={color} size={30} />
+       
+       
+        ),
+      }}
+      />
+
+
+
+
+
+    </Tab.Navigator>
+    
+    
+    </View>
   );
 }
 
-export default MainContainer;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+    height:'100%',
+  }, 
+  
+  plus: {
+        width:40,
+        height:40,
+        backgroundColor:'#9FC9F3',
+        borderRadius:20,
+     
+      },
+
+    });
+
+export default BottomNav;
