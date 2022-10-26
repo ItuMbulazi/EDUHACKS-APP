@@ -9,6 +9,12 @@ import { Text, View, TextInput, ImageBackground,
 
 const menu= ({navigation}) => {
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
   
   
   const [visible, setVisible] = React.useState(false);

@@ -8,6 +8,13 @@ import logo from './images/logo.png'
 
  export default function Packages({navigation}){
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+  
+
   let screenWidth = Dimensions.get('window').width
   let screenHeight = Dimensions.get('window').height
 

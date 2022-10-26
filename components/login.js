@@ -16,6 +16,14 @@ import { ScrollView } from 'native-base';
 
 
  export default function Login({navigation}){
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+
   const [email,setEmail]=React.useState('');
   const [password,setPassword]=React.useState('');
 
@@ -74,7 +82,7 @@ let screenHeight = Dimensions.get('window').height
 
  <TouchableOpacity onPress={signin} style={styles.btn1}><Text style={styles.text}>LOGIN</Text></TouchableOpacity>
 
- <Text style={{color:'#726D6D', marginTop:20, textAlign:'center'}}>Forgot password?</Text>
+ <TouchableOpacity onPress={()=>navigation.navigate('forgotpassword')}><Text style={{color:'#726D6D', marginTop:20, textAlign:'center'}}>Forgot password?</Text></TouchableOpacity>
 
  <Text style={{ marginTop:20, textAlign:'center'}}>Or</Text>
 

@@ -11,6 +11,14 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default function VideoClicked() {
 
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+  
+
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
 

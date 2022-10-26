@@ -13,6 +13,12 @@ import {db} from '../firebase/firebaseconfig'
 
  export default function SignUp({navigation}){
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
   const [email,setEmail]=React.useState('')
   const [password,setPassword]=React.useState('')
   const [username,setUsername]=React.useState('')

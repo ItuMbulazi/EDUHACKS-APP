@@ -4,6 +4,12 @@ import {ScrollView,StyleSheet,View,ImageBackground,Image, Dimensions} from 'reac
 
 function profileSingleAndGroup() {
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
   let screenWidth = Dimensions.get('window').width
   let screenHeight = Dimensions.get('window').height
 

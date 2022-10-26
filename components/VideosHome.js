@@ -19,6 +19,15 @@ import BtmNav from './btmNav'
 
 
 export default function ExpertHome({navigation}) {
+
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+  
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
 

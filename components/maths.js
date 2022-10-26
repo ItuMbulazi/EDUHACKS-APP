@@ -10,6 +10,13 @@ import math from './images/math.webp'
 import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default function Maths({navigation}) {
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+  
   
         const AllPage =()=>{
 navigation.navigate('all')

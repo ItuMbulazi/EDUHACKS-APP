@@ -14,6 +14,7 @@ import BtmNav from './components/btmNav'
 import Login from './components/login'
 import Signup from './components/signup'
 import VideoClicked from './components/videoClicked';
+import ForgotPassword from './components/forgotPassword';
 
 import VideoUpload from './components/VideoUpload'
 import Onboard from './components/Onboard'
@@ -43,8 +44,9 @@ export default function App() {
       <NavigationContainer>
 
        <Stack.Navigator>
-       <Stack.Screen name='Onboard' component={Onboard}/>
+       <Stack.Screen name='Onboard' component={Onboard} headerShown={false}/>
         <Stack.Screen name='login' component={Login}/>
+        <Stack.Screen name='forgotpassword' component={ForgotPassword}/>
         <Stack.Screen name='packages' component={Packages}/>
         <Stack.Screen name="Signup" component={Signup}/>
         <Stack.Screen name='upload' component={Upload}/>

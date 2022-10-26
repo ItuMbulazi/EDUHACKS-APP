@@ -5,6 +5,12 @@ import { View, Text, Dimensions, ImageBackground, Image, Button } from 'react-na
 
 export default function Onboard({navigation}) {
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
     let screenWidth = Dimensions.get('window').width
     let screenHeight = Dimensions.get('window').height
 
@@ -29,7 +35,7 @@ export default function Onboard({navigation}) {
           <View style={{ flex: 1, marginTop: 20, width: screenWidth, justifyContent: 'center', alignItems: 'center' }}>
             <Image source={require('./images/logo.png')} style={{width: 350, height: 350}}/>
             <Text style={{ fontSize: 20, padding: 15, color: 'white', textAlign: 'center', marginBottom: 50}}>No more struggling with Mathematics, Mathematics Literacy, Accounting, and physics.</Text>
-            <Button title='get started' style={{marginBottom: 100}} onPress={() => navigation.navigate('login')}></Button>
+            <Button title='get started' style={{marginBottom: 100,  color:'#181752'}} onPress={() => navigation.navigate('login')}></Button>
           </View>
 
         </ScrollView>
@@ -37,3 +43,4 @@ export default function Onboard({navigation}) {
     )
   
 }
+

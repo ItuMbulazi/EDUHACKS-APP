@@ -14,6 +14,14 @@ import {
 } from "firebase/storage";
 
 export default function ImagePickerExample() {
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+  
   const [image, setImage] = useState(null);
    const video = React.useRef(null);
    const [text,setText] = React.useState({});

@@ -5,6 +5,14 @@ import * as ImagePicker from 'expo-image-picker';
 import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default function VideoUpload() {
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+  
   const [image, setImage] = useState(null);
    const video = React.useRef(null);
   const [status, setStatus] = React.useState({});

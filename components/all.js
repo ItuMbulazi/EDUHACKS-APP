@@ -19,6 +19,13 @@ import Accounting from "./accounting";
 export default function All({navigation}) {
 
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+
 
   const route = useRoute();
 

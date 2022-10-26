@@ -19,6 +19,14 @@ const settingsName = "Settings";
 const Tab = createBottomTabNavigator();
 
 function MainContainer() {
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+  
   return (
     <NavigationContainer>
       <Tab.Navigator

@@ -11,6 +11,13 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default function Physics({navigation}) {
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+  
+
       const AllPage =()=>{
 navigation.navigate('all')
   }
