@@ -47,13 +47,13 @@ navigation.navigate('physics')
 
   return (
 
-    <ScrollView>
+    
 
   
 
     <ImageBackground style={{ flex: 1, width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center' }} source={require('./images/background.jpg')}>
 
-
+<ScrollView>
 
      <Box style={styles.navbar}>
 
@@ -278,10 +278,11 @@ navigation.navigate('physics')
 
 </Box>
 
+</ScrollView>
 
 </ImageBackground>
   
-  </ScrollView>
+ 
 
 
   );
