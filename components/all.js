@@ -657,34 +657,16 @@ const styles = StyleSheet.create({
     color: "white",
   },
 
-<<<<<<< HEAD
   btntext: {
     fontWeight: "bold",
     fontSize: 16,
-=======
-  optionBtn: {
-    flexDirection:'row',
-    marginTop: 50,
-    marginLeft:30,
   },
 
-  btntext:{
-   fontWeight:'bold' ,
-   fontSize: 16,
-   
-
->>>>>>> 717d495e18312224d7ef23bc9a9f62a0fc94c2bc
-  },
-
-<<<<<<< HEAD
   optionBtn: {
     flexDirection: "row",
     marginTop: 50,
     marginLeft: 30,
   },
-=======
- 
->>>>>>> 717d495e18312224d7ef23bc9a9f62a0fc94c2bc
 
   video: {
     alignSelf: "center",
