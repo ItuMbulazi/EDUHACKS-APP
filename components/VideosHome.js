@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView,ImageBackground,TouchableOpacity,Modal } from 'react-native';
+import { View, StyleSheet, ScrollView,ImageBackground,TouchableOpacity,Modal, Dimensions } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { Avatar ,HStack, NativeBaseProvider,Container, Header, Content, VStack,Thumbnail, Text,
 StatusBar,Box,IconButton,Icon} from "native-base";
@@ -11,11 +11,23 @@ import search from './images/search.png'
 import user from './images/user.png'
 import math from './images/math.webp'
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons} from "@expo/vector-icons";
+import BtmNav from './btmNav'
+
+
 
 
 
 export default function ExpertHome({navigation}) {
+
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+  
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
 
@@ -132,6 +144,20 @@ export default function ExpertHome({navigation}) {
     },
 
   ];
+
+  const pickVideo = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result);
+    if (!result.cancelled) {
+      setTestVideo(result.uri);
+    }
+  };
   const [visible, setVisible] = React.useState(false);
   const showModal = () => {
     setVisible(true);
@@ -156,12 +182,17 @@ navigation.navigate('mathlit')
     const PhysicsPage =()=>{
 navigation.navigate('physics')
   }
+
+  let screenWidth = Dimensions.get('window').width
+  let screenHeight = Dimensions.get('window').height
+
+
   return (
 < NativeBaseProvider>
     <View style={{height:1000,width:1000}} >
  
      
-    <ImageBackground style={{flex: 1, width: 380, }} source={require('./images/background.jpg')}>
+    <ImageBackground style={{ flex: 1, width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center' }} source={require('./images/background.jpg')}>
     <Box style={styles.navbar}>
 
 <View>
@@ -176,7 +207,7 @@ navigation.navigate('physics')
 <TouchableOpacity ><Image source={reminder} style={{ width: 25, height: 25, marginTop:90, marginLeft:-90}} /></TouchableOpacity>
   <TouchableOpacity onPress={showModal} ><Image source={search}  style={{ width: 25, height: 25, marginTop:-25, marginLeft:-40}} /></TouchableOpacity>
   <TouchableOpacity onPress={()=>navigation.navigate('Profile')}><Image source={user} style={{ width: 25, height: 25, marginTop:-25,  }} /></TouchableOpacity>
-   
+
     
   <Modal visible={visible} onDismiss={hideModal} >
   <VStack my="4"  space={5} w="100%" maxW="300px" divider={<Box px="2">
@@ -233,7 +264,7 @@ InputRightElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="md
      
     
       </HStack>
-  
+
 </View>
  
 </> ))}

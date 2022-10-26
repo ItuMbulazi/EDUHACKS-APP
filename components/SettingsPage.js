@@ -1,10 +1,20 @@
 import React from 'react'
 import {Button, Card,Title,Text} from 'react-native-paper'
-import {ScrollView,StyleSheet,View,ImageBackground,Image} from 'react-native'
+import {ScrollView,StyleSheet,View,ImageBackground,Image, Dimensions} from 'react-native'
 
 function profileSingleAndGroup() {
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
+  let screenWidth = Dimensions.get('window').width
+  let screenHeight = Dimensions.get('window').height
+
   return (
-    <ImageBackground style={{flex: 1, width: 390, height: 800}} >
+    <ImageBackground style={{ flex: 1, width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center' }} >
     <ScrollView>
        
        

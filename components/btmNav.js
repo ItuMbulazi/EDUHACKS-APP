@@ -8,6 +8,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import All from './all'
 import Upload from './SelectVideo'
 import Profile from './profileSingleAndGroup'
+import Upload from './SelectVideo'
 
 const Tab = createBottomTabNavigator();
 

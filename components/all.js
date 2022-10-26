@@ -78,6 +78,11 @@ export default function All({ navigation }) {
 
   const catFilter =  (()=>{
 
+  const AccountingPage =()=>{
+    navigation.navigate('accounting')
+      }
+    
+
 
     for (let index = 0; index < videos.length; index++) {
      
@@ -95,6 +100,9 @@ export default function All({ navigation }) {
 
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
+
+  let screenWidth = Dimensions.get('window').width
+  let screenHeight = Dimensions.get('window').height
 
   return (
     <ScrollView>
@@ -184,6 +192,9 @@ export default function All({ navigation }) {
             </Modal>
           </View>
         </Box>
+
+<ScrollView horizontal={true}>
+        
 
         <Box style={styles.optionBtn}>
           <TouchableOpacity style={styles.btn}>
@@ -646,16 +657,34 @@ const styles = StyleSheet.create({
     color: "white",
   },
 
+<<<<<<< HEAD
   btntext: {
     fontWeight: "bold",
     fontSize: 16,
+=======
+  optionBtn: {
+    flexDirection:'row',
+    marginTop: 50,
+    marginLeft:30,
   },
 
+  btntext:{
+   fontWeight:'bold' ,
+   fontSize: 16,
+   
+
+>>>>>>> 717d495e18312224d7ef23bc9a9f62a0fc94c2bc
+  },
+
+<<<<<<< HEAD
   optionBtn: {
     flexDirection: "row",
     marginTop: 50,
     marginLeft: 30,
   },
+=======
+ 
+>>>>>>> 717d495e18312224d7ef23bc9a9f62a0fc94c2bc
 
   video: {
     alignSelf: "center",

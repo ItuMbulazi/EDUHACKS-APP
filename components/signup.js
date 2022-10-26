@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, ImageBackground, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Image, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import background from './images/background.jpg'
 import logo from './images/logo.png'
@@ -12,6 +12,12 @@ import {db} from '../firebase/firebaseconfig'
 
 
  export default function SignUp({navigation}){
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
 
   const [email,setEmail]=React.useState('')
   const [password,setPassword]=React.useState('')
@@ -54,12 +60,13 @@ const Signup=()=>{
     });
   }
 
-  
+  let screenWidth = Dimensions.get('window').width
+  let screenHeight = Dimensions.get('window').height
 
   return(
 
 <ScrollView>
-      <ImageBackground style={{flex: 1, width: 390, height: 800}} source={require('./images/background.jpg')}>
+      <ImageBackground style={{ flex: 1, width: screenWidth, height: screenHeight, justifyContent: 'center', alignItems: 'center' }} source={require('./images/background.jpg')}>
         <View>
         <Image source={logo} style={{width:370, height:200}}/>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Heading, AspectRatio, Image, Text, Center, HStack, Stack, NativeBaseProvider, Pressable } from "native-base";
 import { View, TextInput, ImageBackground,
-    StyleSheet, Dimensions,TouchableOpacity,ScrollView } from 'react-native';
+    StyleSheet, Dimensions,TouchableOpacity,ScrollView, } from 'react-native';
 import secondlogo from './images/secondlogo.png'
 import reminder from './images/reminders.png'
 import search from './images/search.png'
@@ -9,14 +9,13 @@ import user from './images/user.png'
 import math from './images/math.webp'
 import { Video, AVPlaybackStatus } from 'expo-av';
 
-export default function MathsLit({navigation}) {
+export default function Accounting({navigation}) {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       header: () => false,
     });
   }, [navigation]);
-  
 
       const AllPage =()=>{
 navigation.navigate('all')
@@ -37,7 +36,6 @@ navigation.navigate('physics')
   const AccountingPage =()=>{
     navigation.navigate('accounting')
       }
-    
 
 
   const video = React.useRef(null);
@@ -46,7 +44,10 @@ navigation.navigate('physics')
   let screenWidth = Dimensions.get('window').width
   let screenHeight = Dimensions.get('window').height
 
+
   return (
+
+    
 
   
 
@@ -87,6 +88,7 @@ navigation.navigate('physics')
       </Box>
 
       </ScrollView>
+
 
          <Text style={{color:'#726D6D', fontSize:16, marginTop: 20, marginLeft:20, marginBottom:20, }}>Explore</Text>
 
@@ -131,14 +133,14 @@ navigation.navigate('physics')
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              Financial Maths
+            Ethics Fixed Assets
             </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
             color: "violet.400"
           }} fontWeight="500" ml="-0.5" mt="-1">
-              Algebra in 3min.
+              PJ in 3min.
             </Text>
           </Stack>
          
@@ -191,7 +193,7 @@ navigation.navigate('physics')
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              Charts
+              Close Corporations Internal Control
             </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
@@ -251,14 +253,14 @@ navigation.navigate('physics')
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              Time & Speed 
+             Inventory Systems
             </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
             color: "violet.400"
           }} fontWeight="500" ml="-0.5" mt="-1">
-              All triangles
+              Simplified for gr12
             </Text>
           </Stack>
       
@@ -280,7 +282,7 @@ navigation.navigate('physics')
 
 </ImageBackground>
   
-  
+ 
 
 
   );

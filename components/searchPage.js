@@ -9,6 +9,12 @@ import { Text, View, TextInput, ImageBackground,
 
 const menu= ({navigation}) => {
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => false,
+    });
+  }, [navigation]);
+
   
   
   const [visible, setVisible] = React.useState(false);
@@ -42,6 +48,11 @@ const menu= ({navigation}) => {
         console.error("Error adding document: ", e);
        }
     })
+
+    let screenWidth = Dimensions.get('window').width
+    let screenHeight = Dimensions.get('window').height
+
+    
   return (
     <View>
       <ScrollView>
