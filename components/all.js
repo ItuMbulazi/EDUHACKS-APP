@@ -38,18 +38,42 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { auth } from "../firebase/firebaseconfig";
-
+import VideosUI from "./VideosUI";
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import SearchModal from "./SearchModal";
+import { Chip } from 'react-native-paper';
+import { doc, getDoc } from "firebase/firestore";
+
+
 
 export default function All({ navigation }) {
-  const [videos, setVideos] = React.useState([]);
 
+const [videos, setVideos] = React.useState([]);
+const [mathVideos,setMathVideos]=React.useState([]);
+const route = useRoute();
+const [visible, setVisible] = React.useState(false);
+const [url, setUrl] = React.useState("");
+const video = React.useRef(null);
+const [status, setStatus] = React.useState({});
+let screenWidth = Dimensions.get('window').width
+let screenHeight = Dimensions.get('window').height
+const [videoType,setVideoType]=React.useState(null)
+const [showSearchBar,setShowSearchBar]=React.useState(false);
+const [chipSelected,setChipSelected]=React.useState(false)
+
+
+
+//This is for calling the getVideos function 
   React.useEffect(() => {
-    getJournals();
+    getVideos();
   }, []);
 
-  const getJournals = async () => {
-    console.log("im in ");
+
+  //Getting videos from cloudstore and passing em to object
+  const getVideos = async () => {
+    const docRef = doc(db, "Users", "SF");
+   const docSnap = await getDoc(docRef);
+
     try {
       const querySnapshot = await getDocs(collection(db, "Hacks"));
       const data = querySnapshot.docs.map((doc) => ({
@@ -62,584 +86,111 @@ export default function All({ navigation }) {
     } catch (error) {}
   };
 
-  const route = useRoute();
+function SearchBar(){
+  
+if(showSearchBar==false){
+  return( 
+    <>
 
-  const [visible, setVisible] = React.useState(false);
-  const showModal = () => {
+  <View> 
+    <Icon onPress={()=>setShowSearchBar(true)}
+   style={{marginTop:83}}
+     ml="2"
+     size="7"
+     color="#181752"
+     as={<Ionicons name="search" />}
+   /></View>
+   </>
+  )
+}
+else{return(
+  <Input placeholder="Search" variant="filled" width="100%" borderRadius="10" py="1" px="2" InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />} />
+)
+
+} 
+
+
+
+}
+
+
+  function showModal() {
     setVisible(true);
-  };
-  const hideModal = () => {
+  }
+const hideModal = () => {
     setVisible(false);
   };
-
-
-
-
-
-  const catFilter =  (()=>{
-
-  const AccountingPage =()=>{
-    navigation.navigate('accounting')
-      }
-    
-
-
-    for (let index = 0; index < videos.length; index++) {
-     
-      if (videos[index].subject ==  "Accounting"){
-        setVideos((prev)=> [...prev, videos[index]])
-
-      }else if (video[index].subject ==  ""){
-        
-      }
-      
-    }
+  const  nextpage  =((video)=>{
+    navigation.navigate('Video',{video})
   })
-  const [url, setUrl] = React.useState("");
-  React.useEffect(() => {}, []);
 
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
 
-  let screenWidth = Dimensions.get('window').width
-  let screenHeight = Dimensions.get('window').height
-
+function ViewVideos(){
+  if(videoType==null){
+    return  <VideosUI videos={videos} horizontal={false}  />
+  }
+  else if(videoType=="All"){
+    return  <VideosUI videos={videos} horizontal={false}  />
+  }
+  else if(videoType=="Mathematics"){
+    return  <VideosUI videos={videos.filter(vid=>vid.subject=="Mathematics")} horizontal={false}  />
+  }
+  else if(videoType=="Mathematics Literacy"){
+    return  <VideosUI videos={videos.filter(vid=>vid.subject=="Mathematics Literacy")} horizontal={false}  />
+  }
+  else if(videoType=="Physical Sciences"){
+    return  <VideosUI videos={videos.filter(vid=>vid.subject=="Physical Sciences")} horizontal={false} />
+  }
+  else if(videoType=="Accounting"){
+    return  <VideosUI videos={videos.filter(vid=>vid.subject=="Accounting")} horizontal={false}  />
+  }
+  
+}
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false} justifyItems='center'>
       <ImageBackground
-        style={{ flex: 1, width: 380 }}
+        style={{ flex: 1, alignSelf:'stretch' }}
         source={require("./images/background.jpg")}
       >
-        <Box style={styles.navbar}>
-          <View>
-            <Image source={secondlogo} alt="" style={styles.logoimage} />
-          </View>
-
-          <View style={{ marginLeft: 150, marginTop: -70 }}>
-            <TouchableOpacity>
-              <Image
-                source={reminder}
-                style={{
-                  width: 25,
-                  height: 25,
-                  marginTop: 90,
-                  marginLeft: -90,
-                }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={showModal}>
-              <Image
-                source={search}
-                style={{
-                  width: 25,
-                  height: 25,
-                  marginTop: -25,
-                  marginLeft: -40,
-                }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-              <Image
-                source={user}
-                style={{ width: 25, height: 25, marginTop: -25 }}
-              />
-            </TouchableOpacity>
-
-            <Modal visible={visible} onDismiss={hideModal}>
-              <VStack
-                my="4"
-                space={5}
-                w="100%"
-                maxW="300px"
-                divider={<Box px="2"></Box>}
-              >
-                <VStack w="100%" space={5} alignSelf="center">
-                  <HStack>
-                    <Icon
-                      onPress={hideModal}
-                      ml="2"
-                      size="6"
-                      color="gray.400"
-                      as={<Ionicons name="md-arrow-back" />}
-                    />
-                    <Input
-                      placeholder="Search"
-                      variant="filled"
-                      width="100%"
-                      borderRadius="10"
-                      py="1"
-                      px="2"
-                      InputLeftElement={
-                        <Icon
-                          ml="2"
-                          size="4"
-                          color="gray.400"
-                          as={<Ionicons name="ios-search" />}
-                        />
-                      }
-                      InputRightElement={
-                        <Icon
-                          ml="2"
-                          size="4"
-                          color="gray.400"
-                          as={<Ionicons name="md-close" />}
-                        />
-                      }
-                    />
-                  </HStack>
-                </VStack>
-              </VStack>
-            </Modal>
-          </View>
-        </Box>
+       <View style={{marginLeft:100 }}>
+       <Box style={styles.navbar}>
+    <View>
+      <Image source={secondlogo} alt="" style={styles.logoimage} />
+    </View>
+   
+  </Box>
+      </View>
 
 <ScrollView horizontal={true}>
+
+       
+        <TouchableOpacity style={styles.btn} onPress={()=>setVideoType('All')}>
+        <Chip mode='outlined'  onPress={()=>setVideoType('All')} style={{backgroundColor:'#181752'}} textStyle={{color:'white'}}>All</Chip>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn} onPress={()=>setVideoType('Accounting')}>
+             <Chip mode='outlined' onPress={()=>setVideoType('Accounting')} style={{backgroundColor:'#181752'}} textStyle={{color:'white'}}>Accounting</Chip>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn}  onPress={()=>setVideoType('Mathematics')}>
+          <Chip mode='outlined' onPress={()=>setVideoType('Mathematics')} style={{backgroundColor:'#181752'}} textStyle={{color:'white'}}>Mathematics</Chip>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn}>
+          <Chip mode='outlined' onPress={()=>setVideoType('Mathematics Literacy')} style={{backgroundColor:'#181752'}} textStyle={{color:'white'}}>Mathematics Literacy</Chip>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn}>
+          <Chip mode='outlined' onPress={()=>setVideoType('Physical Sciences')} style={{backgroundColor:'#181752'}} textStyle={{color:'white'}}>Physical Sciences</Chip>
+          </TouchableOpacity>
         
-
-        <Box style={styles.optionBtn}>
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.btntext} onPress={catFilter}>
-              All
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn}  onPress={catFilter}>
-            <Text style={styles.btntext} onPress={MathsPage}>
-              Maths
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.btntext} onPress={MathLitPage}>
-              Maths Lit
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.btntext} onPress={PhysicsPage}>
-              Physics
-            </Text>
-          </TouchableOpacity>
-        </Box>
-        <TouchableOpacity onPress={() => navigation.navigate("Explore")}>
-          <Text
-            style={{
-              color: "#726D6D",
-              fontSize: 16,
-              marginTop: 20,
-              marginLeft: 20,
-              marginBottom: 20,
-            }}
-          >
-            Explore
-          </Text>
-        </TouchableOpacity>
-
-        <Box style={{ marginBottom: 100 }}>
-          <ScrollView horizontal={true}>
-            {videos.map((videos) => (
-              <Box
-                maxW="80"
-                rounded="lg"
-                overflow="hidden"
-                borderColor="coolGray.200"
-                borderWidth="1"
-                _dark={{
-                  borderColor: "coolGray.600",
-                  backgroundColor: "gray.700",
-                  height: "auto",
-                }}
-                _web={{
-                  shadow: 2,
-                  borderWidth: 0,
-                }}
-                _light={{
-                  backgroundColor: "gray.50",
-                }}
-              >
-                <Box>
-                  <AspectRatio w="100%" ratio={16 / 9}>
-                    <Video
-                      ref={video}
-                      style={styles.video}
-                      source={{
-                        uri: videos.uri,
-                      }}
-                      useNativeControls
-                      resizeMode="contain"
-                      isLooping
-                      onPlaybackStatusUpdate={(status) =>
-                        setStatus(() => status)
-                      }
-                    />
-                  </AspectRatio>
-                  <Center
-                    bg="violet.500"
-                    _dark={{
-                      bg: "violet.400",
-                    }}
-                    _text={{
-                      color: "warmGray.50",
-                      fontWeight: "700",
-                      fontSize: "xs",
-                    }}
-                    position="absolute"
-                    bottom="0"
-                    px="3"
-                    py="1.5"
-                  >
-                    {videos.subject}
-                  </Center>
-                </Box>
-                <Stack p="4" space={3}>
-                  <Stack space={2}>
-                    <Heading size="md" ml="-1">
-                      {videos.videoTitle}
-                    </Heading>
-                    <Text
-                      fontSize="xs"
-                      _light={{
-                        color: "violet.500",
-                      }}
-                      _dark={{
-                        color: "violet.400",
-                      }}
-                      fontWeight="500"
-                      ml="-0.5"
-                      mt="-1"
-                    >
-                      The Silicon Valley of India.
-                    </Text>
-                  </Stack>
-                  <Text fontWeight="400">{videos.description}</Text>
-                  <HStack
-                    alignItems="center"
-                    space={4}
-                    justifyContent="space-between"
-                  >
-                    <HStack alignItems="center">
-                      <Text
-                        color="coolGray.600"
-                        _dark={{
-                          color: "warmGray.200",
-                        }}
-                        fontWeight="400"
-                      >
-                       
-                      </Text>
-                    </HStack>
-                  </HStack>
-                </Stack>
-              </Box>
-            ))}
-          </ScrollView>
-        </Box>
-
-        <Text
-          style={{
-            color: "#726D6D",
-            fontSize: 16,
-            marginTop: 20,
-            marginLeft: 20,
-            marginBottom: 20,
-          }}
-        >
-          View More
-        </Text>
-
-        <Box>
-          <ScrollView horizontal={true}>
-            <Box
-              maxW="80"
-              rounded="lg"
-              overflow="hidden"
-              borderColor="coolGray.200"
-              borderWidth="1"
-              _dark={{
-                borderColor: "coolGray.600",
-                backgroundColor: "gray.700",
-                height: "auto",
-              }}
-              _web={{
-                shadow: 2,
-                borderWidth: 0,
-              }}
-              _light={{
-                backgroundColor: "gray.50",
-              }}
-            >
-              <Box>
-                <AspectRatio w="100%" ratio={16 / 9}>
-                  <Video
-                    ref={video}
-                    style={styles.video}
-                    source={{
-                      uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-                  />
-                </AspectRatio>
-                <Center
-                  bg="violet.500"
-                  _dark={{
-                    bg: "violet.400",
-                  }}
-                  _text={{
-                    color: "warmGray.50",
-                    fontWeight: "700",
-                    fontSize: "xs",
-                  }}
-                  position="absolute"
-                  bottom="0"
-                  px="3"
-                  py="1.5"
-                ></Center>
-              </Box>
-
-              <Stack p="4" space={3}>
-                <Stack space={2}>
-                  <Heading size="md" ml="-1">
-                    The Garden City
-                  </Heading>
-                  <Text
-                    fontSize="xs"
-                    _light={{
-                      color: "violet.500",
-                    }}
-                    _dark={{
-                      color: "violet.400",
-                    }}
-                    fontWeight="500"
-                    ml="-0.5"
-                    mt="-1"
-                  >
-                    The Silicon Valley of India.
-                  </Text>
-                </Stack>
-                <Text fontWeight="400">
-                  Bengaluru (also called Bangalore) is the center of India's
-                  high-tech industry. The city is also known for its parks and
-                  nightlife.
-                </Text>
-                <HStack
-                  alignItems="center"
-                  space={4}
-                  justifyContent="space-between"
-                >
-                  <HStack alignItems="center">
-                    <Text
-                      color="coolGray.600"
-                      _dark={{
-                        color: "warmGray.200",
-                      }}
-                      fontWeight="400"
-                    >
-                      6 mins ago
-                    </Text>
-                  </HStack>
-                </HStack>
-              </Stack>
-            </Box>
-
-            <Box
-              maxW="80"
-              rounded="lg"
-              overflow="hidden"
-              borderColor="coolGray.200"
-              borderWidth="1"
-              _dark={{
-                borderColor: "coolGray.600",
-                backgroundColor: "gray.700",
-                height: "auto",
-              }}
-              _web={{
-                shadow: 2,
-                borderWidth: 0,
-              }}
-              _light={{
-                backgroundColor: "gray.50",
-              }}
-            >
-              <Box>
-                <AspectRatio w="100%" ratio={16 / 9}>
-                  <Video
-                    ref={video}
-                    style={styles.video}
-                    source={{
-                      uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-                  />
-                </AspectRatio>
-                <Center
-                  bg="violet.500"
-                  _dark={{
-                    bg: "violet.400",
-                  }}
-                  _text={{
-                    color: "warmGray.50",
-                    fontWeight: "700",
-                    fontSize: "xs",
-                  }}
-                  position="absolute"
-                  bottom="0"
-                  px="3"
-                  py="1.5"
-                >
-                  PHOTOS
-                </Center>
-              </Box>
-              <Stack p="4" space={3}>
-                <Stack space={2}>
-                  <Heading size="md" ml="-1">
-                    The Garden City
-                  </Heading>
-                  <Text
-                    fontSize="xs"
-                    _light={{
-                      color: "violet.500",
-                    }}
-                    _dark={{
-                      color: "violet.400",
-                    }}
-                    fontWeight="500"
-                    ml="-0.5"
-                    mt="-1"
-                  >
-                    The Silicon Valley of India.
-                  </Text>
-                </Stack>
-                <Text fontWeight="400">
-                  Bengaluru (also called Bangalore) is the center of India's
-                  high-tech industry. The city is also known for its parks and
-                  nightlife.
-                </Text>
-                <HStack
-                  alignItems="center"
-                  space={4}
-                  justifyContent="space-between"
-                >
-                  <HStack alignItems="center">
-                    <Text
-                      color="coolGray.600"
-                      _dark={{
-                        color: "warmGray.200",
-                      }}
-                      fontWeight="400"
-                    >
-                      6 mins ago
-                    </Text>
-                  </HStack>
-                </HStack>
-              </Stack>
-            </Box>
-
-            <Box
-              maxW="80"
-              rounded="lg"
-              overflow="hidden"
-              borderColor="coolGray.200"
-              borderWidth="1"
-              _dark={{
-                borderColor: "coolGray.600",
-                backgroundColor: "gray.700",
-                height: "auto",
-              }}
-              _web={{
-                shadow: 2,
-                borderWidth: 0,
-              }}
-              _light={{
-                backgroundColor: "gray.50",
-              }}
-            >
-              <Box>
-                <AspectRatio w="100%" ratio={16 / 9}>
-                  <Video
-                    ref={video}
-                    style={styles.video}
-                    source={{
-                      uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-                  />
-                </AspectRatio>
-                <Center
-                  bg="violet.500"
-                  _dark={{
-                    bg: "violet.400",
-                  }}
-                  _text={{
-                    color: "warmGray.50",
-                    fontWeight: "700",
-                    fontSize: "xs",
-                  }}
-                  position="absolute"
-                  bottom="0"
-                  px="3"
-                  py="1.5"
-                >
-                  PHOTOS
-                </Center>
-              </Box>
-              <Stack p="4" space={3}>
-                <Stack space={2}>
-                  <Heading size="md" ml="-1">
-                    The Garden City
-                  </Heading>
-                  <Text
-                    fontSize="xs"
-                    _light={{
-                      color: "violet.500",
-                    }}
-                    _dark={{
-                      color: "violet.400",
-                    }}
-                    fontWeight="500"
-                    ml="-0.5"
-                    mt="-1"
-                  >
-                    The Silicon Valley of India.
-                  </Text>
-                </Stack>
-                <Text fontWeight="400">
-                  Bengaluru (also called Bangalore) is the center of India's
-                  high-tech industry. The city is also known for its parks and
-                  nightlife.
-                </Text>
-                <HStack
-                  alignItems="center"
-                  space={4}
-                  justifyContent="space-between"
-                >
-                  <HStack alignItems="center">
-                    <Text
-                      color="coolGray.600"
-                      _dark={{
-                        color: "warmGray.200",
-                      }}
-                      fontWeight="400"
-                    >
-                      6 mins ago
-                    </Text>
-                  </HStack>
-                </HStack>
-              </Stack>
-            </Box>
-          </ScrollView>
-        </Box>
+        </ScrollView>
+      
+<ViewVideos/>
       </ImageBackground>
     </ScrollView>
   );
 }
 
+
 const styles = StyleSheet.create({
+
   navbar: {
     flexDirection: "row",
     marginTop: 30,
@@ -664,7 +215,7 @@ const styles = StyleSheet.create({
 
   optionBtn: {
     flexDirection: "row",
-    marginTop: 50,
+    marginTop: 5,
     marginLeft: 30,
   },
 

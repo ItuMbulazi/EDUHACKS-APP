@@ -5,8 +5,9 @@ import {StyleSheet, View} from 'react-native'
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 
+
 import All from './all'
-import Upload from './SelectVideo'
+
 import Profile from './profileSingleAndGroup'
 import Upload from './SelectVideo'
 
@@ -18,7 +19,9 @@ function BottomNav() {
     <View style={styles.container}>
    
         
-    <Tab.Navigator >
+    <Tab.Navigator tabBarOptions={{ style:{backgroundColor:"red"}  }
+   
+    }>
       <Tab.Screen name="Home" component={All} 
        options={{
         headerShown: false,
@@ -32,7 +35,7 @@ function BottomNav() {
       <Tab.Screen name="Music" component={Upload} 
       options={{
         headerShown:false,
-        tabBarLabel: 'Music',
+        tabBarLabel: 'Upload',
         tabBarIcon: ({ color }) => (
           <Ionicons name="add-circle-outline" color={color} size={30}  />
        
@@ -44,7 +47,7 @@ function BottomNav() {
 <Tab.Screen name="Emotions" component={Profile} 
       options={{
         headerShown:false,
-        tabBarLabel: 'plus',
+        tabBarLabel: 'Profile',
         tabBarIcon: ({ color }) => (
           <Ionicons name="person-circle-outline" color={color} size={30} />
        

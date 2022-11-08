@@ -35,13 +35,14 @@ const Signup=()=>{
 
 
       const user = userCredential.user;
-
+        
         try {
-            const docRef = addDoc(collection(db, "video"), {
+            const docRef = addDoc(collection(db, "users"), {
               username: username,
               number:number,
               email:email,
               password:password,
+              accountType:'Free'
            
             });
             console.log("Document written with ID: ", docRef.id);

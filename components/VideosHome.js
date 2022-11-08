@@ -13,6 +13,11 @@ import math from './images/math.webp'
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons} from "@expo/vector-icons";
 import BtmNav from './btmNav'
+import { auth } from "../firebase/firebaseconfig";
+
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { useRoute } from "@react-navigation/native";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 
 
@@ -26,124 +31,30 @@ export default function ExpertHome({navigation}) {
       header: () => false,
     });
   }, [navigation]);
+  React.useEffect(() => {
+    getJournals();
+  }, []);
+
 
   
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
+const [videos,setVideos]=React.useState([]);
 
-  const Videos = [
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "AWESOME hacks",
-      duration:'3mins',
-      uploader: "Tiisetso",
-      views:'1,000,000 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "math video",
-      duration:'2mins',
-      uploader: "Bophelo",
-      views:'12 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "OuT OF THIS WORLD TRICK",
-      duration:'39sec',
-      uploader: "Itu",
-      views:'123,000,000,000,000 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "physics hack",
-      duration:'1min',
-      uploader: "Bianca",
-      views:'250 views ',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "MANYAMA MAYAMS MAYAMBELA HACKAMS",
-      duration:'5mins',
-      uploader: "Manyama",
-      views:'1000 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "AWESOME hacks",
-      duration:'3mins',
-      uploader: "Tiisetso",
-      views:'1,000,000 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "physics hack",
-      duration:'1min',
-      uploader: "Bianca",
-      views:'250 views ',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "OuT OF THIS WORLD TRICK",
-      duration:'39sec',
-      uploader: "Itu",
-      views:'123,000,000,000,000 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "AWESOME hacks",
-      duration:'3mins',
-      uploader: "Tiisetso",
-      views:'1,000,000 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "AWESOME hacks",
-      duration:'3mins',
-      uploader: "Tiisetso",
-      views:'1,000,000 views',
-      uploadtime:'15h00'
-    },
-    {
-      id: "0",
-      image:
-      require('./images/video.mp4'),
-      title: "AWESOME hacks",
-      duration:'3mins',
-      uploader: "Tiisetso",
-      views:'1,000,000 views',
-      uploadtime:'15h00'
-    },
+const getJournals = async () => {
+  console.log("im in ");
+  try {
+    const querySnapshot = await getDocs(collection(db, "Hacks"));
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log(data);
+    setVideos(data);
+    console.log(videos);
+  } catch (error) {}
+};
 
-  ];
 
   const pickVideo = async () => {
     // No permissions request is necessary for launching the image library
@@ -230,13 +141,13 @@ InputRightElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="md
 </Box>
 
 <ScrollView>
-{Videos.map((vid)=>(<>
+{videos.map((vid)=>(<>
 <Video
-  ref={video}
+  ref={videos}
   style={{height:300,alignSelf:'stretch',marginTop:40}}
 
   source={
- vid.image
+ vid.uri
   }
 
   useNativeControls

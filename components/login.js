@@ -28,7 +28,7 @@ import { ScrollView } from 'native-base';
   const [password,setPassword]=React.useState('');
 
 
-  useEffect(()=>{
+  React.useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "all-practice",
+    "name": "EduHacks",
     "slug": "snack-22ced35a-c0b6-477c-96d4-84450725267f",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.eduhacks.eduhacks"
     },
     "web": {
       "favicon": "./assets/favicon.png"

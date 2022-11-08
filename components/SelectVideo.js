@@ -16,7 +16,7 @@ import secondlogo from "./images/secondlogo.png";
 import { Icon, ScrollView } from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { auth, storage , db} from "../firebase/firebaseconfig";
-import { getStorage, uploadBytes, updateMetadata,getDownloadURL } from "firebase/storage";
+import { getStorage, uploadBytes, updateMetadata,getDownloadURL,doc,getDoc,getDocs } from "firebase/storage";
 import "firebase/storage";
 import { RadioButton } from "react-native-paper";
 import {
@@ -25,12 +25,12 @@ import {
   FormControl,
   WarningOutlineIcon,
 } from "native-base";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc,setDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { async } from "@firebase/util";
 
 
-export default function ImagePickerExample() {
+export default function ImagePickerExample({navigation}) {
   const [image, setImage] = useState(null);
   const video = React.useRef(null);
   const [text, setText] = React.useState();
@@ -38,16 +38,17 @@ export default function ImagePickerExample() {
   const [status, setStatus] = React.useState({});
   const [testVideo, setTestVideo] = useState(null);
   const [subject, setSubject] = React.useState("");
+  const [time,setTime]=React.useState('')
+const [publisherName,setPublisherName]=React.useState('')
 
   const [cc, setCC] = React.useState("");
 
-  const newMetadata = {
-    creator: auth.currentUser.email,
-  };
   useEffect(()=>{
 
     
   },[]);
+
+
 
 
   const func=async ()=>{
@@ -61,7 +62,15 @@ export default function ImagePickerExample() {
   }
  
 
-
+const getDATE=()=>{
+  var date = new Date().getDate(); //Current Date
+  var month = new Date().getMonth() + 1; //Current Month
+  var year = new Date().getFullYear(); //Current Year
+  var hours = new Date().getHours(); //Current Hours
+  var min = new Date().getMinutes(); //Current Minutes
+  var sec = new Date().getSeconds(); //Current Seconds
+setTime(date+month+year);
+}
 
   const UploadToFirebase = async () => {
     const storage = await getStorage(); //the storage itself
@@ -76,15 +85,13 @@ export default function ImagePickerExample() {
       console.log(x)
       setCC(x);
     })
-
-    setTimeout( async () => {
-      await addDoc(collection(db, "Hacks"), {
+    await addDoc(collection(db, "Hacks"), {
         videoTitle: text,
         description:description,
         subject: subject,
         video: testVideo,
         uri:cc,
-        time: new Date()
+  
       })
         .then(async () => {
           alert("Save successfully");
@@ -93,10 +100,13 @@ export default function ImagePickerExample() {
             description:description,
             subject: subject,
             video: testVideo,
-            uri:cc
+            uri:cc,
+            publisherName:publisherName
+       
+
           })
-          
-          
+          navigation.navigate('all')
+         
         })
         .catch((error) => {
          console.log(error.message)
@@ -106,7 +116,7 @@ export default function ImagePickerExample() {
       
     })
       
-    }, 10000);
+ 
    
 }
 
@@ -188,6 +198,23 @@ export default function ImagePickerExample() {
             activeOutlineColor="blue"
             onChangeText={(newText) => setDescription(newText)}
           />
+          <Text>Publisher name</Text>
+          <TextInput
+            style={{
+              color: "grey",
+              margin: 20,
+              alignContent: "center",
+              borderColor: "black",
+              borderWidth: 1,
+              width: 300,
+              height: 40,
+              backgroundColor: "#EAEAEA",
+              borderColor: "#726D6D",
+            }}
+            placeholder="Caption your video"
+            onChangeText={(newText) => setText(newText)}
+          />
+
 
           <FormControl w="3/4" maxW="300" isRequired isInvalid>
             <Select

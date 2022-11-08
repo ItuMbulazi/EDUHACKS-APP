@@ -28,11 +28,11 @@ import logo from './images/logo.png'
 
 <Text style={{color:'#726D6D', fontStyle:'normal', fontSize:36, textAlign:'center'}}>Packages</Text>
 
- <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate('Signup')}><Text style={styles.text}>Free</Text>
+ <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate('signup')}><Text style={styles.text}>Free</Text>
  <Text style={{color:'#ffff', fontSize:16, marginLeft:60 }}>You get five free videos</Text>
  </TouchableOpacity>
  
- <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate('SignupExpert')}><Text style={styles.text}>Expert</Text>
+ <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate('expertsignup')}><Text style={styles.text}>Expert</Text>
  <Text style={{color:'#ffff', fontSize:16, marginLeft:60 }}>Accredeble uploader</Text>
  </TouchableOpacity>
      

@@ -8,17 +8,35 @@ import search from './images/search.png'
 import user from './images/user.png'
 import math from './images/math.webp'
 import { Video, AVPlaybackStatus } from 'expo-av';
+import { auth, storage , db} from "../firebase/firebaseconfig";
+import { getStorage, uploadBytes, updateMetadata,getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable } from "firebase/storage";
 
-export default function VideoClicked() {
-
+export default function VideoClicked({route , navigation}) {
+const [uri,setUri]=React.useState('')
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       header: () => false,
     });
   }, [navigation]);
+
+  const getURI=async()=>{
+
+    const reference=ref(storage, `${route.params.subject}` + `/` + `${route.params.title}`);
+    await getDownloadURL(reference).then((x)=>{
+      setUri(x);
+    
+  
+    })
+  }
+  React.useEffect(() => {
+    getURI();
+    
+  }, []);
   
 
+const vid=`${route.params.uri}`;
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
 
@@ -77,10 +95,10 @@ export default function VideoClicked() {
         ref={video}
         style={styles.video}
         source={{
-          uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+          uri:vid
         }}
         useNativeControls
-        resizeMode="contain"
+        resizeMode="cover"
         isLooping
         onPlaybackStatusUpdate={status => setStatus(() => status)}
       />
@@ -102,14 +120,14 @@ export default function VideoClicked() {
         <Stack p="4" space={3} style={{marginLeft:30, marginTop:-50}}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              The Garden City
+        {route.params.title}
             </Heading>
             <Text fontSize="xs" _light={{
             color: "violet.500"
           }} _dark={{
             color: "violet.400"
           }} fontWeight="500" ml="-0.5" mt="-1">
-              The Silicon Valley of India.
+             {uri}
             </Text>
           </Stack>
 
@@ -118,7 +136,7 @@ export default function VideoClicked() {
               <Text color="coolGray.600" _dark={{
               color: "warmGray.200"
             }} fontWeight="400">
-                6 mins ago
+              {route.params.subject}
               </Text>
             </HStack>
           </HStack>
